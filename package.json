@@ -21,6 +21,8 @@
     "node-sass": "^4.5.3",
     "postcss-easy-import": "^3.0.0",
     "postcss-loader": "^2.0.6",
+    "prop-types": "^15.6.0",
+    "qs": "^6.5.1",
     "raw-loader": "^0.5.1",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
