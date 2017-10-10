@@ -5,13 +5,12 @@ import fetch from 'isomorphic-unfetch'
 const PostLink = (props) => (
   <li>
     <Link as={`/p/${props.show.id}`} href={`/post?id=${props.show.id}`}>
-      <a>{ props.show.name }</a>
+      <a className="blue">{ props.show.name }</a>
     </Link>
     <style jsx>{`
       a {
         font-family: "sans-serif";
         text-decoration: none;
-        color: rgba(0,0,0, .6);
       }
       a:hover {
         opacity: .6;
@@ -27,31 +26,54 @@ const PostLink = (props) => (
 const Index = (props) => (
   <Layout>
     <h1>TV Shows</h1>
-    <ul>
-      {props.shows.map(({ show }) => (
-        <PostLink key={ show.id } show={ show } />
-      ))}
-    </ul>
-    <style jsx>{`
-      h1, a {
-        font-family: "sans-serif";
-      }
-      ul {
-        padding: 0;
-      }
-    `}</style>
+    <div>
+      { props.error  ? (
+        <div className="pa1">
+          <p className="red">{`There's a problem in retrieving the movie list. Please try again later.`}</p>
+        </div>
+      ) : (
+        <div className="movie-list">
+          <ul>
+            {props.shows.map(({ show }) => (
+              <PostLink key={ show.id } show={ show } />
+            ))}
+          </ul>
+          <style jsx>{`
+            h1, a {
+              font-family: "sans-serif";
+            }
+            ul {
+              padding: 0;
+            }
+          `}</style>
+        </div>
+      )}
+    </div>
   </Layout>
 )
 
 Index.getInitialProps = async function() {
-  const res = await fetch('https://api.tvmaze.com/search/shows?q=batman')
-  const data = await res.json()
+  try {
+    const res = await fetch('https://api.tvmaze.com/search/shows?q=batman')
+    const data = await res.json()
 
-  console.log(`Data count: ${ data.length }`);
+    console.log(`Data count: ${ data.length }`);
 
-  return {
-    shows: data
+    return {
+      shows: data,
+      error: false
+    }
+  } catch (e) {
+    console.error('Error');
+    console.error(e);
+
+    return {
+      shows: null,
+      error: true
+    }
   }
+
+
 }
 
 export default Index

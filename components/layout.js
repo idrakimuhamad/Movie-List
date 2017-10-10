@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Header from './header'
+import stylesheet from 'styles/index.scss'
 
 const layoutStyle = {
   width: '90%',
@@ -11,6 +12,7 @@ const layoutStyle = {
 
 const Layout = (props) => (
   <div style={ layoutStyle }>
+    <style dangerouslySetInnerHTML={{ __html: stylesheet }} />
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta charSet="utf-8" />
