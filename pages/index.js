@@ -119,14 +119,6 @@ export default class extends Component {
                     <PostLink key={ show.id } show={ show } />
                   ))}
                 </ul>
-                <style jsx>{`
-                  h1, a {
-                    font-family: "sans-serif";
-                  }
-                  ul {
-                    padding: 0;
-                  }
-                `}</style>
               </div>
             )}
           </div>
